@@ -89,5 +89,23 @@ class CalculationsController < ApplicationController
         @monthly_payment = @principal *( ((@apr / 100 / 12) * ( 1 + (@apr / 100 / 12))**(@years * 12))  / ( ( 1 + (@apr / 100 / 12) )**(@years * 12) - 1) )
      
         render("/calculations/payment_results_template.html.erb")
-    end    
+    end   
+    
+    def random_form
+       
+       render("/calculations/random_form_template.html.erb") 
+    end
+    
+    def process_random
+        # The incoming parameters for this action look like {"user_number" => "bob"}
+        # Rails stores that hash in a variable called params
+        
+        user_range = [params["user_min"].to_f,params["user_max"].to_f]
+        sorted_user_range = user_range.sort
+        @lo = sorted_user_range[0]
+        @hi = sorted_user_range[1]
+        @random_number = rand(@lo..@hi)
+        
+        render("/calculations/random_results_template.html.erb")
+    end
 end
