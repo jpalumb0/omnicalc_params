@@ -108,4 +108,83 @@ class CalculationsController < ApplicationController
         
         render("/calculations/random_results_template.html.erb")
     end
+    
+    def word_count_form
+       
+       render("/calculations/word_count_form_template.html.erb") 
+    end
+    
+    def process_word_count
+    
+        @text = params["user_text"]
+        @special_word = params["user_special"]
+
+        @word_count = @text.split.count
+
+        @character_count_with_spaces = @text.length
+
+        @character_count_without_spaces = @text.gsub(/\s+/,"").length
+
+        @occurrences = @text.gsub(/[^a-z0-9\s]/i,"").downcase.split.count(@special_word.downcase) #downcase necessary?
+        
+        render("/calculations/word_count_results_template.html.erb")
+    end
+    
+    def stats_form
+       
+       render("/calculations/stats_form_template.html.erb") 
+    end
+    
+    def process_stats
+        @numbers = params[:list_of_numbers].gsub(',', '').split.map(&:to_f)
+
+        @sorted_numbers = @numbers.sort
+    
+        @count = @numbers.count
+
+        @minimum = @numbers.min
+    
+        @maximum = @numbers.max
+    
+        @range = @maximum-@minimum
+    
+        if @count.odd?
+          @median = @sorted_numbers[@count/2]
+        else
+          a=@sorted_numbers[@count/2]
+          b=@sorted_numbers[(@count/2)-1]
+          @median = (a+b)/2
+        end
+    
+        @sum = @numbers.sum
+    
+        @mean = @sum/@count
+        
+        nums = @numbers
+        vars = []
+        nums.each do |num|
+          var = ((num-@mean)**2)
+          vars.push(var)
+        end
+        @variance = vars.sum/@count
+    
+        @standard_deviation = @variance**0.5
+    
+       # @mode = @numbers.max_by{|i|@numbers.count(i)}
+        
+        occurrences = []
+        @numbers.each do |i|
+          occurrences.push(@numbers.count(i))
+        end  
+        
+        @mode = @numbers[occurrences.index(occurrences.max)]
+    
+        
+        render("/calculations/stats_results_template.html.erb")
+    end
+    
+    def landing
+       
+       render("/calculations/landing_template.html.erb") 
+    end
 end

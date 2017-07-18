@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
   
+  get("/",        { :controller => "calculations", :action => "landing" })
+  
   get("/flexible/square/:user_number",{:controller => "calculations",:action => "flex_square"})
   get("/flexible/square_root/:user_number",{:controller => "calculations",:action => "flex_square_root"})
   get("/flexible/payment/:interest_rate/:term_years/:principal",{:controller => "calculations",:action => "flex_payment"})
@@ -16,6 +18,12 @@ Rails.application.routes.draw do
   
   get("/random/new", {:controller => "calculations", :action => "random_form"})
   get("/random/results", {:controller => "calculations", :action => "process_random"})
+  
+  get("/word_count/new", {:controller => "calculations", :action => "word_count_form"})
+  get("/word_count/results", {:controller => "calculations", :action => "process_word_count"})
+  
+  get("/descriptive_statistics/new", {:controller => "calculations", :action => "stats_form"})
+  get("/descriptive_statistics/results", {:controller => "calculations", :action => "process_stats"})
   
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   mount WebGit::Engine, at: "/rails/git"
