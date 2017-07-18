@@ -136,7 +136,7 @@ class CalculationsController < ApplicationController
     end
     
     def process_stats
-        @numbers = params[:list_of_numbers].gsub(',', '').split.map(&:to_f)
+        @numbers = params["user_numbers"].gsub(',', '').split.map(&:to_f)
 
         @sorted_numbers = @numbers.sort
     
