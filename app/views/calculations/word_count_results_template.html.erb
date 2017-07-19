@@ -1,0 +1,20 @@
+<h1>Word Count Results</h1>
+
+<h6>Text</h6>
+<p><%= @text %></p>
+
+<h6>Word count</h6>
+<p><%= @word_count %></p>
+
+<h6>Character count (with spaces)</h6>
+<p><%= @character_count_with_spaces %></p>
+
+<h6>Character count (without spaces)</h6>
+<p><%= @character_count_without_spaces %></p>
+
+<h6>Occurrences of <%=@special_word %></h6>
+<p><%= @occurrences %></p>
+
+<a href="/word_count/new">
+  Process more text
+</a>
