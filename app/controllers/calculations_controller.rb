@@ -81,7 +81,7 @@ class CalculationsController < ApplicationController
     
     def process_payment
         
-        @apr = params["user_APR"].to_f
+        @apr = params["user_APR"].to_f.round(4)
         @years = params["user_term"].to_i
         @principal = params["user_principal"].to_f
         
